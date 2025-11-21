@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Client - USA</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+          crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="assets/css/style.css"> 
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-danger shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/512px-Pok%C3%A9_Ball_icon.svg.png" 
+                     alt="Pokeball" width="30" height="30" class="me-2">
+                Pokemon USA
+            </a>
+        </div>
+    </nav>
+    
+    <main class="container my-4">
+        
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="mb-3 text-secondary">Daftar Pokemon (<span id="pokemon-count">0</span> ditemukan)</h2>
+                
+                <div id="pokemon-list" class="row row-cols-1 row-cols-md-3 g-4">
+                    <p class="text-center text-muted">
+                        Koneksi API berhasil, menunggu Developer B menampilkan data di sini...
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm sticky-top" style="top: 20px;">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Detail Pokemon (Developer C)</h5>
+                    </div>
+                    <div class="card-body" id="pokemon-detail">
+                        <p class="text-muted">
+                            Pilih salah satu Pokemon dari daftar untuk melihat detail di sini.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer class="text-center py-3 bg-light mt-4">
+        <p class="text-muted mb-0">Disiplin Git Flow adalah Kunci. &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+            crossorigin="anonymous">
+    </script>
+    
+    <script src="assets/js/script.js"></script> 
+</body>
+</html> 
