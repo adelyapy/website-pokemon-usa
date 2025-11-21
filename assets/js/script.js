@@ -83,4 +83,3 @@ async function fetchPokemonList() {
 }
 
 fetchPokemonList();
-
