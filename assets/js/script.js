@@ -11,6 +11,7 @@ const pokemonDetailElement = document.getElementById('pokemon-detail'); // <div 
 // Developer C's Code: Mengambil dan Menampilkan Detail Pokemon
 // =================================================================
 
+
 /**
  * Fungsi untuk mengambil dan menampilkan detail Pokemon berdasarkan URL.
  * Fungsi ini dipanggil dari onclick pada kartu Pokemon.
