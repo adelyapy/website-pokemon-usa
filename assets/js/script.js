@@ -41,13 +41,13 @@ function capturePokemon(name, id) {
         if (success) {
             messageContainer.innerHTML = `
                 <div class="alert alert-success py-2 text-center">
-                    🎉 Berhasil! Anda menangkap **${name.toUpperCase()}**!
+                    🎉 Berhasil! Anda menangkap "${name.toUpperCase()}"!
                 </div>
             `;
         } else {
             messageContainer.innerHTML = `
                 <div class="alert alert-warning py-2 text-center">
-                    💨 Gagal! **${name}** berhasil kabur! Coba lagi.
+                    💨 Gagal! "${name}" berhasil kabur! Ayo coba lagi!
                 </div>
             `;
         }
