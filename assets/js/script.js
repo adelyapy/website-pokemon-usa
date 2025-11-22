@@ -1,21 +1,69 @@
 // =================================================================
-// Maintainer's Code (Issue #1 - Area A)
+// 1. Maintainer's Code (Issue #1 - Area A)
 // =================================================================
 const POKEAPI_BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=15';
 const pokemonListElement = document.getElementById('pokemon-list'); // <div id="pokemon-list">
 const pokemonCountElement = document.getElementById('pokemon-count'); 
 const pokemonDetailElement = document.getElementById('pokemon-detail'); // <div id="pokemon-detail">
 
-// *FUNGSI INI HANYA TEMPAT PENAMPUNG UNTUK DEVELOPER C (Issue #3)*
 // =================================================================
-// Developer C's Code: Mengambil dan Menampilkan Detail Pokemon
+// 2. Developer C's Code: Mengambil dan Menampilkan Detail Pokemon
 // =================================================================
+
+/**
+ * FUNGSI BARU OLEH PIHAK A: Menangani penangkapan Pokemon
+ * @param {string} name - Nama Pokemon
+ * @param {number} id - ID Pokemon
+ */
+function capturePokemon(name, id) {
+    // Tentukan container di mana pesan akan ditampilkan (di dalam detail card)
+    const messageContainer = document.getElementById('capture-message');
+    
+    // Pastikan container pesan ada (kita tambahkan di HTML card detail)
+    if (!messageContainer) {
+        console.error("Capture message container missing!");
+        return; 
+    }
+
+    // 50% kesempatan berhasil (Simulasi sederhana)
+    const success = Math.random() > 0.5; 
+    
+    // Tampilkan pesan loading
+    messageContainer.innerHTML = `
+        <div class="alert alert-info py-2 text-center" role="alert">
+            <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+            Melempar Pokeball ke ${name}....
+        </div>
+    `;
+
+    // Timeout untuk simulasi proses penangkapan (1.5 detik)
+    setTimeout(() => {
+        if (success) {
+            messageContainer.innerHTML = `
+                <div class="alert alert-success py-2 text-center">
+                    🎉 Berhasil! Anda menangkap **${name.toUpperCase()}**!
+                </div>
+            `;
+        } else {
+            messageContainer.innerHTML = `
+                <div class="alert alert-warning py-2 text-center">
+                    💨 Gagal! **${name}** berhasil kabur! Coba lagi.
+                </div>
+            `;
+        }
+        
+        // Hilangkan pesan setelah 3 detik
+        setTimeout(() => {
+            messageContainer.innerHTML = '';
+        }, 3000);
+        
+    }, 1500);
+}
 
 
 /**
  * Fungsi untuk mengambil dan menampilkan detail Pokemon berdasarkan URL.
- * Fungsi ini dipanggil dari onclick pada kartu Pokemon.
- * @param {string} url - URL API spesifik untuk detail Pokemon (misalnya: '.../api/v2/pokemon/1/')
+ * @param {string} url - URL API spesifik untuk detail Pokemon
  */
 async function fetchPokemonDetail(url) {
     const detailContainer = document.getElementById('pokemon-detail'); 
@@ -32,7 +80,6 @@ async function fetchPokemonDetail(url) {
 
         const detail = await response.json();
         
-        // Panggil fungsi display detail
         displayPokemonDetail(detail);
 
     } catch (error) {
@@ -43,6 +90,7 @@ async function fetchPokemonDetail(url) {
 
 /**
  * Fungsi untuk menampilkan detail Pokemon ke UI (HTML).
+ * MODIFIKASI PIHAK A: Menambahkan tombol Tangkap dan container pesan.
  * @param {Object} detail - Objek data detail Pokemon dari PokeAPI
  */
 function displayPokemonDetail(detail) {
@@ -51,19 +99,19 @@ function displayPokemonDetail(detail) {
     // Ambil dan konversi data
     const id = detail.id;
     const name = detail.name;
-    // Konversi decimetres ke meter (10 dm = 1 m)
     const height = (detail.height / 10).toFixed(1); 
-    // Konversi hectograms ke kilogram (10 hg = 1 kg)
     const weight = (detail.weight / 10).toFixed(1); 
-    // Ambil semua tipe dan gabungkan
     const types = detail.types.map(t => t.type.name).join(', ');
-    const imageUrl = detail.sprites.front_default; // Sprite default
+    const imageUrl = detail.sprites.front_default;
 
     const htmlContent = `
         <div class="card shadow-lg">
             <div class="card-header bg-primary text-white text-center">
                 <h4 class="text-capitalize mb-0">${name} - #${id.toString().padStart(3, '0')}</h4>
             </div>
+            
+            <div id="capture-message"></div>
+
             <div class="card-body row align-items-center">
                 <div class="col-md-4 text-center">
                     <img src="${imageUrl}" alt="${name}" class="img-fluid" style="width: 150px; height: 150px;">
@@ -77,6 +125,14 @@ function displayPokemonDetail(detail) {
                         <li class="list-group-item"><strong>Tipe:</strong> <span class="text-capitalize">${types}</span></li>
                         <li class="list-group-item"><strong>Base XP:</strong> ${detail.base_experience}</li>
                     </ul>
+                    
+                    <div class="d-grid mt-3">
+                         <button class="btn btn-danger" onclick="capturePokemon('${name}', ${id})">
+                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/512px-Pok%C3%A9_Ball_icon.svg.png" 
+                                  alt="Pokeball" width="20" height="20" class="me-2">
+                             Tangkap Pokemon!
+                         </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,7 +142,7 @@ function displayPokemonDetail(detail) {
 }
 
 // =================================================================
-// Developer B's Code (Issue #2 - BAGIAN BARU)
+// 3. Developer B's Code (Issue #2 - BAGIAN LIST)
 // =================================================================
 
 /**
@@ -101,8 +157,6 @@ function displayPokemonList(pokemonData) {
         const id = index + 1; 
         const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
-        // Pihak B menggunakan div class="col" karena container "#pokemon-list"
-        // sudah memiliki class "row row-cols-md-3"
         htmlContent += `
             <div class="col">
                 <div class="card shadow-sm pokemon-card" 
@@ -126,7 +180,7 @@ function displayPokemonList(pokemonData) {
 }
 
 // =================================================================
-// Modifikasi Fungsi Fetch (Pihak B memanggil display-nya di sini)
+// 4. Modifikasi Fungsi Fetch (Pihak B memanggil display-nya di sini)
 // =================================================================
 async function fetchPokemonList() {
     try {
@@ -141,7 +195,7 @@ async function fetchPokemonList() {
         const data = await response.json();
         const results = data.results;
 
-        // Panggil fungsi display yang baru dibuat oleh Pihak B
+        // Panggil fungsi display yang dibuat oleh Pihak B
         displayPokemonList(results); 
 
         pokemonCountElement.textContent = results.length;
@@ -156,4 +210,3 @@ async function fetchPokemonList() {
 }
 
 fetchPokemonList();
-
