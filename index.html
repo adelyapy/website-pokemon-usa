@@ -11,6 +11,16 @@
           crossorigin="anonymous">
     
     <link rel="stylesheet" href="assets/css/style.css"> 
+    
+    <style>
+        .pokemon-card {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .pokemon-card:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
 
@@ -27,21 +37,24 @@
     <main class="container my-4">
         
         <div class="row">
+            
             <div class="col-md-8">
                 <h2 class="mb-3 text-secondary">Daftar Pokemon (<span id="pokemon-count">0</span> ditemukan)</h2>
                 
                 <div id="pokemon-list" class="row row-cols-1 row-cols-md-3 g-4">
-                    <p class="text-center text-muted">
-                        Koneksi API berhasil, menunggu Developer B menampilkan data di sini...
-                    </p>
+                    <p class="text-center text-muted">Memuat daftar...</p>
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card shadow-sm sticky-top" style="top: 20px;">
+                    
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">Detail Pokemon (Developer C)</h5>
                     </div>
+                    
+                    <div id="capture-message"></div>
+                    
                     <div class="card-body" id="pokemon-detail">
                         <p class="text-muted">
                             Pilih salah satu Pokemon dari daftar untuk melihat detail di sini.
@@ -64,5 +77,4 @@
     
     <script src="assets/js/script.js"></script> 
 </body>
-</html> 
-
+</html>
